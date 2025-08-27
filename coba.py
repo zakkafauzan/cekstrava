@@ -19,14 +19,14 @@ def get_athlete_info(url):
             name = "Unknown"
 
     # Get this month's distance
-    distance = find_elements_in_monthly_stats(soup)
+    distance = get_distance(soup)
     # Try to find the section with this month's stats
     stats = soup.find_all('div', class_='athlete-stats')
 
     print("Athlete Name:", name)
     print("This Month's Distance:", distance if distance else "Not found")
 
-def find_elements_in_monthly_stats(soup):
+def get_distance(soup):
     """
     Return all text contents inside the div[data-testid="monthly-stats"]
     where the text matches numbers followed by a space and 'km'.
@@ -99,10 +99,10 @@ def resolve_final_url(url):
         return url
 
 if __name__ == "__main__":
-    with open("allathletes.txt", "r") as f:
+    with open("allathletes2.txt", "r") as f:
         urls = [line.strip() for line in f if line.strip()]
 
-    with open("all_distance.csv", "w", newline="", encoding="utf-8") as csvfile:
+    with open("all_distance2.csv", "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(["athlete_name", "distance", "final_url"])
 
@@ -124,7 +124,7 @@ if __name__ == "__main__":
                     name = "Unknown"
 
             # Get this month's distance
-            distance = find_elements_in_monthly_stats(soup)
+            distance = get_distance(soup)
             if distance:
                 distance_val = distance.replace("km", "").strip()
             else:
